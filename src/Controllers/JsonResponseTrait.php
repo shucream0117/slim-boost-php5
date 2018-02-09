@@ -105,10 +105,7 @@ trait JsonResponseTrait
      * @param null|JsonResponseBodyBase $data
      * @return Response
      */
-    private function getResponseObject(
-        int $statusCode,
-        JsonResponseBodyBase $data = null
-    )
+    private function getResponseObject($statusCode, JsonResponseBodyBase $data = null)
     {
         if (is_null($data)) {
             $data = new EmptyResponse();
