@@ -1,9 +1,9 @@
 # SlimBoost
 
 - Slim3
-- PHP ≧ 7.1.x
+- PHP ≧ 5.5.x
 
-おためし版です
+https://github.com/shucream0117/slim-boost をPHP5に対応させました
 
 # Routes Example
 
