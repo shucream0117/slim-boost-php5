@@ -10,6 +10,11 @@ use Slim\Http\Response;
 
 trait JsonResponseTrait
 {
+    protected $isCrossOriginRequestAllowed = true;
+
+    /** @var string[] */
+    protected $allowedOrigin = [];
+
     /**
      * 200 OK
      * @param JsonResponseBodyBase $data
@@ -116,6 +121,21 @@ trait JsonResponseTrait
             $statusCode,
             JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PARTIAL_OUTPUT_ON_ERROR
         );
+        if ($this->isCrossOriginRequestAllowed) {
+            $response = $this->addHeadersForCORS($response, $this->allowedOrigin);
+        }
         return $response;
+    }
+    /**
+     * レスポンスオブジェクトにCORS用のヘッダーを付加する
+     * Access-Control-Allow-Methods については middleware.php で行っているので注意
+     * @param Response $response
+     * @param array $allowedOrigin
+     * @return Response
+     */
+    private function addHeadersForCORS(Response $response, array $allowedOrigin = [])
+    {
+        $allowedOriginStr = empty($allowedOrigin) ? '*' : implode(', ', $allowedOrigin);
+        return $response->withHeader('Access-Control-Allow-Origin', $allowedOriginStr);
     }
 }
