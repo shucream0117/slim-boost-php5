@@ -136,6 +136,7 @@ trait JsonResponseTrait
     private function addHeadersForCORS(Response $response, array $allowedOrigin = [])
     {
         $allowedOriginStr = empty($allowedOrigin) ? '*' : implode(', ', $allowedOrigin);
-        return $response->withHeader('Access-Control-Allow-Origin', $allowedOriginStr);
+        return $response->withHeader('Access-Control-Allow-Origin', $allowedOriginStr)
+            ->withHeader('Access-Control-Allow-Headers', '*');
     }
 }
