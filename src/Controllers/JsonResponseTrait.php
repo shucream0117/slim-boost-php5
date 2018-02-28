@@ -130,14 +130,9 @@ trait JsonResponseTrait
      */
     protected function addHeadersForCORS(Response $response)
     {
-        $allowedOrigin = $this->getAllowedOrigin();
-        $allowedOriginStr = empty($allowedOrigin) ? '*' : implode(', ', $allowedOrigin);
-
-        $allowedHeaders = $this->getAllowedHeaders();
-        $allowedHeadersStr = empty($allowedHearders) ? '' : implode(', ', $allowedHeaders);
-
-        return $response->withHeader('Access-Control-Allow-Origin', $allowedOriginStr)
-            ->withHeader('Access-Control-Allow-Headers', $allowedHeadersStr);
+        return $response->withHeader('Access-Control-Allow-Origin', $this->getAllowedOrigin())
+            ->withHeader('Access-Control-Allow-Headers', $this->getAllowedHeaders())
+            ->withHeader('Access-Control-Allow-Credentials', 'true');
     }
 
     /**
